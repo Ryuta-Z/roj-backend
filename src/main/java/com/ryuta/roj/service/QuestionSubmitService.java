@@ -1,7 +1,9 @@
 package com.ryuta.roj.service;
 
+import com.ryuta.roj.model.dto.question_submit.QuestionSubmitAddRequest;
 import com.ryuta.roj.model.entity.QuestionSubmit;
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.ryuta.roj.model.entity.User;
 
 /**
 * @author ryuta
@@ -10,4 +12,6 @@ import com.baomidou.mybatisplus.extension.service.IService;
 */
 public interface QuestionSubmitService extends IService<QuestionSubmit> {
 
+    Long doSubmit(QuestionSubmitAddRequest questionSubmitAddRequest, User loginUser);
+    void validSubmit(QuestionSubmit questionSubmit);
 }
