@@ -1,4 +1,5 @@
 package com.ryuta.roj.model.vo;
+
 import cn.hutool.json.JSONUtil;
 import com.ryuta.roj.model.dto.question.JudeCase;
 import com.ryuta.roj.model.dto.question.JudgeConfig;
@@ -29,6 +30,10 @@ public class QuestionVO implements Serializable {
      */
     private List<String> tagList;
 
+    /**
+     * 用例
+     */
+    private List<JudeCase> judgeCases;
 
     /**
      * 提交数
@@ -56,9 +61,9 @@ public class QuestionVO implements Serializable {
      * @return Question
      */
     public static Question voToObj(QuestionVO questionVO) {
-        if(questionVO == null) return null;
+        if (questionVO == null) return null;
         Question question = new Question();
-        BeanUtils.copyProperties(questionVO,question);
+        BeanUtils.copyProperties(questionVO, question);
         JudgeConfig judgeConfig = questionVO.getJudgeConfig();
         question.setJudgeConfig(JSONUtil.toJsonStr(judgeConfig));
         List<String> tags = questionVO.getTagList();
@@ -73,11 +78,12 @@ public class QuestionVO implements Serializable {
      * @return QuestionVO
      */
     public static QuestionVO objToVo(Question question) {
-        if(question == null) return null;
+        if (question == null) return null;
         QuestionVO questionVO = new QuestionVO();
-        BeanUtils.copyProperties(question,questionVO);
+        BeanUtils.copyProperties(question, questionVO);
         questionVO.setTagList(JSONUtil.toList(question.getTags(), String.class));
-        question.setJudgeConfig(JSONUtil.toJsonStr(question.getJudgeConfig()));
+        questionVO.setJudgeCases(JSONUtil.toList(question.getJudgeCase(), JudeCase.class));
+        questionVO.setJudgeConfig(JSONUtil.toBean(question.getJudgeConfig(), JudgeConfig.class));
         return questionVO;
     }
 }

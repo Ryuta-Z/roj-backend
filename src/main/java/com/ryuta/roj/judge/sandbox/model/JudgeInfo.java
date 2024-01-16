@@ -1,4 +1,4 @@
-package com.ryuta.roj.model.dto.question_submit;
+package com.ryuta.roj.judge.sandbox.model;
 
 import lombok.Data;
 

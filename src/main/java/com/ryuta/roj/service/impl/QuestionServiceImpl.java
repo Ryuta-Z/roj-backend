@@ -98,14 +98,14 @@ public class QuestionServiceImpl extends ServiceImpl<QuestionMapper, Question>
         if (StringUtils.isNotBlank(searchText)) {
             queryWrapper.and(qw -> qw.like("title", searchText).or().like("content", searchText));
         }
-        queryWrapper.like(StringUtils.isNotBlank(title), "title", title);
+        queryWrapper.or().like(StringUtils.isNotBlank(title), "title", title);
         queryWrapper.like(StringUtils.isNotBlank(content), "content", content);
         if (CollUtil.isNotEmpty(tagList)) {
             for (String tag : tagList) {
-                queryWrapper.like("tags", "\"" + tag + "\"");
+                queryWrapper.or().like("tags", "\"" + tag + "\"");
             }
         }
-        queryWrapper.eq(ObjectUtils.isNotEmpty(id), "id", id);
+        queryWrapper.or().eq(ObjectUtils.isNotEmpty(id), "id", id);
         queryWrapper.eq(ObjectUtils.isNotEmpty(userId), "userId", userId);
         queryWrapper.orderBy(SqlUtils.validSortField(sortField), sortOrder.equals(CommonConstant.SORT_ORDER_ASC),
                 sortField);
